@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Full-Screen 3D PDF Flipbook</title>
+  <meta name="description" content="Realistic full-screen 3D animated PDF flipbook with 3-second auto turn.">
+  <meta name="theme-color" content="#070b14">
+
+  <!-- Preconnect & Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="app-container" id="app-container">
+    
+    <!-- Pure Full-Screen 3D PDF Flipbook -->
+    <div class="flipbook-viewport state-cover" id="flipbook-viewport">
+      <div id="flipbook-container"></div>
+    </div>
+
+    <!-- Minimal PDF Loader -->
+    <div id="loading-overlay" class="loading-overlay" aria-live="polite">
+      <div class="book-loader">
+        <div class="book-loader-spine"></div>
+        <div class="book-loader-page"></div>
+        <div class="book-loader-page"></div>
+        <div class="book-loader-page"></div>
+      </div>
+      <div id="loading-text" class="loading-text">Loading Flipbook...</div>
+    </div>
+
+  </div>
+
+  <script src="./lib/pdf.min.js"></script>
+  <script src="./lib/page-flip.browser.js"></script>
+  <script src="flipbook.js"></script>
+
+</body>
+</html>
