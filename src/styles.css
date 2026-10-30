@@ -1,0 +1,265 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system — a dark theatre stage with brass/gold accents.
+ * All colors are semantic tokens in oklch; components never hardcode colors.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-spot-glow: var(--spot-glow);
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Karla", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.16 0.02 45);
+  --foreground: oklch(0.95 0.018 85);
+  --card: oklch(0.21 0.02 45);
+  --card-foreground: oklch(0.95 0.018 85);
+  --popover: oklch(0.21 0.02 45);
+  --popover-foreground: oklch(0.95 0.018 85);
+  --primary: oklch(0.8 0.13 85);
+  --primary-foreground: oklch(0.18 0.03 45);
+  --secondary: oklch(0.25 0.03 45);
+  --secondary-foreground: oklch(0.93 0.02 85);
+  --muted: oklch(0.24 0.02 45);
+  --muted-foreground: oklch(0.7 0.03 80);
+  --accent: oklch(0.32 0.09 30);
+  --accent-foreground: oklch(0.95 0.02 85);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(0.3 0.02 50);
+  --input: oklch(0.3 0.02 50);
+  --ring: oklch(0.8 0.13 85);
+  --spot-glow: oklch(0.55 0.09 85 / 14%);
+  --curtain-back: #06112a;
+}
+
+.dark {
+  --background: oklch(0.16 0.02 45);
+  --foreground: oklch(0.95 0.018 85);
+  --card: oklch(0.21 0.02 45);
+  --card-foreground: oklch(0.95 0.018 85);
+  --popover: oklch(0.21 0.02 45);
+  --popover-foreground: oklch(0.95 0.018 85);
+  --primary: oklch(0.8 0.13 85);
+  --primary-foreground: oklch(0.18 0.03 45);
+  --secondary: oklch(0.25 0.03 45);
+  --secondary-foreground: oklch(0.93 0.02 85);
+  --muted: oklch(0.24 0.02 45);
+  --muted-foreground: oklch(0.7 0.03 80);
+  --accent: oklch(0.32 0.09 30);
+  --accent-foreground: oklch(0.95 0.02 85);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(0.3 0.02 50);
+  --input: oklch(0.3 0.02 50);
+  --ring: oklch(0.8 0.13 85);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+}
+
+/* The stage beneath the curtain: a deep royal midnight theatre ambience */
+.stage {
+  background:
+    radial-gradient(120% 80% at 50% 108%, rgba(29, 78, 216, 0.22) 0%, transparent 62%),
+    radial-gradient(58% 46% at 50% 26%, rgba(59, 130, 246, 0.16) 0%, transparent 72%),
+    #050a18;
+}
+
+/* Full-viewport curtain overlay that sits above the page content. */
+.curtain-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+}
+
+.curtain-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .curtain-layer {
+    transition: none;
+  }
+}
+
+/* Ceremonial ribbon stretched across the closed curtain. */
+.ribbon-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.ribbon-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  max-width: none;
+  height: auto;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 16px rgba(59, 130, 246, 0.35));
+  will-change: transform, opacity;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.ribbon-left { clip-path: inset(0 50% 0 0); transform-origin: 0% 50%; }
+.ribbon-right { clip-path: inset(0 0 0 50%); transform-origin: 100% 50%; }
+
+/* tension releases: cut ends recoil outward, swing down from edges, then drop away */
+.ribbon-cut .ribbon-left { animation: half-fall-left 1.8s cubic-bezier(0.4, 0, 0.7, 1) 0.5s forwards; }
+.ribbon-cut .ribbon-right { animation: half-fall-right 1.8s cubic-bezier(0.4, 0, 0.7, 1) 0.5s forwards; }
+
+@keyframes half-fall-left {
+  0% { transform: translate(-50%, -50%) rotate(0deg); opacity: 1; }
+  10% { transform: translate(-52%, -48%) rotate(3deg); }
+  40% { transform: translate(-53%, -42%) rotate(32deg); }
+  65% { transform: translate(-54%, -24%) rotate(48deg); opacity: 1; }
+  100% { transform: translate(-54%, 80%) rotate(58deg); opacity: 0; }
+}
+
+@keyframes half-fall-right {
+  0% { transform: translate(-50%, -50%) rotate(0deg); opacity: 1; }
+  10% { transform: translate(-48%, -48%) rotate(-3deg); }
+  40% { transform: translate(-47%, -42%) rotate(-32deg); }
+  65% { transform: translate(-46%, -24%) rotate(-48deg); opacity: 1; }
+  100% { transform: translate(-46%, 80%) rotate(-58deg); opacity: 0; }
+}
+
+.ribbon-scissors {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(15vw, 150px);
+  transform: translate(20px, -70px) rotate(-10deg);
+  filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.75));
+  animation: scissors-hover 2.4s ease-in-out infinite;
+  will-change: transform, opacity;
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 30;
+  transition: transform 0.2s, filter 0.2s;
+}
+.ribbon-scissors:hover {
+  transform: translate(20px, -78px) rotate(-6deg) scale(1.08);
+  filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 18px rgba(253, 224, 71, 0.6));
+}
+.ribbon-cut .ribbon-scissors {
+  animation: scissors-snip 1.5s cubic-bezier(0.35, 0, 0.55, 1) forwards;
+}
+
+@keyframes scissors-hover {
+  0%, 100% { transform: translate(20px, -70px) rotate(-10deg); }
+  50% { transform: translate(20px, -82px) rotate(-6deg); }
+}
+
+/* Scissors glide into the blue floral ribbon knot, snip shut, and sweep away */
+@keyframes scissors-snip {
+  0% { transform: translate(20px, -70px) rotate(-10deg); opacity: 1; }
+  28% { transform: translate(-10px, -6px) rotate(2deg) scale(1.08); opacity: 1; }
+  35% { transform: translate(-14px, -2px) rotate(0deg) scale(0.95); opacity: 1; }
+  45% { transform: translate(-14px, -2px) rotate(0deg) scale(1); opacity: 1; }
+  60% { transform: translate(-8px, -6px) rotate(-3deg); opacity: 1; }
+  100% { transform: translate(240px, -240px) rotate(-35deg); opacity: 0; }
+}
+
+/* a brilliant glint right where the blue ribbon flower is cut */
+.ribbon-flash {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4rem;
+  height: 4rem;
+  margin: -2rem 0 0 -2rem;
+  border-radius: 9999px;
+  background: radial-gradient(circle, #fff 0%, #60a5fa 35%, #ffd700 70%, transparent 92%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 35;
+}
+.ribbon-cut .ribbon-flash { animation: ribbon-flash 0.5s ease-out 0.42s forwards; }
+@keyframes ribbon-flash {
+  0% { opacity: 0; transform: scale(0.2); }
+  35% { opacity: 1; transform: scale(1.6); }
+  100% { opacity: 0; transform: scale(2.6); }
+}
+
+.ribbon-cut-btn {
+  pointer-events: auto;
+  position: absolute;
+  bottom: 14%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #0c1a3d, #1e3a8a);
+  color: #fde047;
+  border: 1.5px solid #60a5fa;
+  padding: 0.85rem 2.6rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 25px rgba(96, 165, 250, 0.45);
+  animation: ribbon-pulse 2s ease-out infinite;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+.ribbon-cut-btn:hover {
+  transform: translateX(-50%) scale(1.06);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.85), 0 0 35px rgba(96, 165, 250, 0.7);
+  background: linear-gradient(135deg, #132454, #2563eb);
+}
+.ribbon-cut .ribbon-cut-btn { opacity: 0; pointer-events: none; }
+@keyframes ribbon-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(96, 165, 250, 0.6); }
+  100% { box-shadow: 0 0 0 1.2rem rgba(96, 165, 250, 0); }
+}
